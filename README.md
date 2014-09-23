@@ -1,6 +1,6 @@
 CMSI-281 - Assignment #2
 ========
-      This project represents assignment number 2 of CMSI 281. For this project class TwoDPoint was created to represent a two dimensional point in (x,y) space.  All TwoDPoints must be positive and will throw an exception for badly constructed points. 
+This project represents assignment number 2 of CMSI 281. For this project class TwoDPoint was created to represent a two dimensional point in (x,y) space.  All TwoDPoints must be positive and will throw an exception for badly constructed points. 
 All TwoDPoints have private variable of x and y with getters and setters for the values.
 
 For the construction of other shapes, it was by intentional design to force all shapes to be created by the TwoDPoint class, therefore forcing all shapes to have positive points, excluding the special case of circle. The shapes were initially organized with an abstract class Shape which was extended to the sub-classes of Circle, Square, Rectangle, and RightTriangle -- and thus they share the same method headers. However, since this Assignment is not about polymorphism, I deleted the super class. 
