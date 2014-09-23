@@ -10,6 +10,6 @@ All variables for a class that represent intrinsic things about the object (e.g 
     
 The tests are by no means exhaustive, only 45 in total. I played around with JUnit4 learning about how to catch exceptions especially using the @RULE annotation as well as using @BEFORECLASS and @BEFORE.
       
-Building the project with maven with eclipse was easier than expected after watching a tutorial.
+My project design structure strives to be simple, each Shape is made by TwoDPoints and each TwoDPoint must adhere to the criteria in the constructor, thus creating a sort of gatekeeper, which tries to keep the bad stuff out. This project pivots on the functionality of TwoDPoint. Using it as the base for other shapes creates multiple check points.
       
 This project will continue to be update as a learning experience for JUnit testing.
