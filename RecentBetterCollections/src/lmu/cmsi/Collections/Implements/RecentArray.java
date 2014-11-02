@@ -1,5 +1,6 @@
 package lmu.cmsi.Collections.Implements;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 import lmu.cmsi.Collections.Interface.Framework;
@@ -12,7 +13,8 @@ public class RecentArray<E> implements Iterable<E>, Framework<E> {
 
 
 	public static void main(String[] args){
-
+		int max = 4;
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -137,6 +139,7 @@ public class RecentArray<E> implements Iterable<E>, Framework<E> {
 	@Override
 	public int getSize() {
 		// TODO Auto-generated method stub
+		
 		int count  = 0;
 
 		for(E e : this.bin){
@@ -161,7 +164,16 @@ public class RecentArray<E> implements Iterable<E>, Framework<E> {
 	@Override
 	public Iterator<E> iterator() {
 		// TODO Auto-generated method stub
-		return new RecentArrayIterator<E>(this.bin, this.index, this.getOldestIndex(), this.getNewestIndex());
+		
+		
+		if(this.getSize() > 0){
+			
+			return new RecentArrayIterator<E>(this.bin, this.index, this.getOldestIndex(), this.getNewestIndex());
+		}
+		else{
+			
+			return Collections.emptyIterator();
+		}
 	}
 
 
