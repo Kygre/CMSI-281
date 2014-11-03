@@ -1,6 +1,5 @@
 package lmu.cmsi.Collections.Implements;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -18,31 +17,36 @@ public class RecentArrayIterator<E> implements Iterator<E> {
 
 
 	// size must be greater than zero
-	public RecentArrayIterator(E[] bin, int index, int oldestindex,
+	public RecentArrayIterator(E[] bin, int oldestindex,
 			int newestindex) {
 
 		if(oldestindex > newestindex){
-			bin = doSomethingSpecial(this.bin, index, oldestindex, newestindex);
+			bin = doSomethingSpecial(bin, oldestindex, newestindex);
 		}
 
-
+		
 		this.index = 0;
 		this.bin = bin;
+		
+		
+		
 
 	}
 
 	// oldest > newest
 	@SuppressWarnings("unchecked")
-	private E[] doSomethingSpecial(E[] bin2, int index2, int oldestindex,
-			int newestindex) {
+	private E[] doSomethingSpecial(E[] bin2, int oldestindex, int newestindex) {
 		E[] newbin = ((E[]) new Object[bin2.length]);
 
+		int count = 0;
 		for(int i = oldestindex; i < bin2.length; i++){
-			newbin[i] = bin2[i];
+			newbin[count] = bin2[i];
+			count++;
 		}
 
 		for(int i = 0 ; i <= newestindex; i++){
-			newbin[i] = bin2[i];
+			newbin[count] = bin2[i];
+			count++;
 		}
 
 		return newbin;
@@ -50,6 +54,22 @@ public class RecentArrayIterator<E> implements Iterator<E> {
 
 
 
+	}
+	
+	// prints this iterator from index 0
+	public void printIteration(){
+		
+		for(E e : this.bin){
+			if(e != null){
+				
+				System.out.print(e.toString() + " :");
+			}
+			else{
+				System.out.print( "NULL :");
+			}
+		}
+		
+		System.out.println();
 	}
 
 	@Override

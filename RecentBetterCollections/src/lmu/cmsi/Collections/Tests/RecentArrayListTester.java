@@ -1,6 +1,6 @@
 package lmu.cmsi.Collections.Tests;
 
-import lmu.cmsi.Collections.Implements.RecentArray;
+import lmu.cmsi.Collections.Implements.RecentArrayList;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,12 +8,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class RecentArrayTester {
+public class RecentArrayListTester {
 
-
+	
 
 	private int max = 4;
-	private RecentArray<Integer> myl;
+	private RecentArrayList<Integer> myl;
 
 
 	@Rule
@@ -22,7 +22,7 @@ public class RecentArrayTester {
 
 	@Before
 	public void init_Collection(){
-		myl = new RecentArray<Integer>(max);
+		myl = new RecentArrayList<Integer>(max);
 	}
 
 
@@ -34,6 +34,7 @@ public class RecentArrayTester {
 		}
 	}
 
+
 	@Test
 	public void FewerNgetOld() {
 		int offset = 2;
@@ -41,7 +42,7 @@ public class RecentArrayTester {
 		
 		initTo(target);
 		
-
+		
 		Assert.assertEquals(0, myl.getOldest(), 0);
 	}
 
@@ -72,6 +73,7 @@ public class RecentArrayTester {
 		int target = max + offset;
 		
 		initTo(target);
+		
 		Assert.assertEquals(max + offset - 1, myl.getNewest(), 0.0);
 		
 	}
@@ -79,7 +81,7 @@ public class RecentArrayTester {
 	@Test
 	public void testRecentArrayNoZero() {
 		thrown.expect(IllegalStateException.class);
-		myl = new RecentArray<Integer>(0);
+		myl = new RecentArrayList<Integer>(0);
 	}
 
 
@@ -126,6 +128,8 @@ public class RecentArrayTester {
 		int count = 0;
 
 		
+		
+		
 		for(Integer i : myl){
 
 			if(count == target){
@@ -157,6 +161,7 @@ public class RecentArrayTester {
 		count = 0;
 		
 		for(Integer g : myl){
+			System.out.println(myints[count] + " - " + g);
 			Assert.assertEquals(myints[count], g, 0.0);
 			count++;
 		}
@@ -176,7 +181,7 @@ public class RecentArrayTester {
 		
 	}
 
-
-
+	
+		
 
 }

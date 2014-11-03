@@ -1,64 +1,75 @@
 package lmu.cmsi.Collections.Implements;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
 import lmu.cmsi.Collections.Interface.Framework;
 
-public class RecentArray<E> implements Iterable<E>, Framework<E> {
+/**
+ * 
+ * @author Kwadwo Yeboah
+ * Represent arraylist version of RecentArray with n sized list
+ *
+ * @param <E>
+ */
+public class RecentArrayList<E> implements Iterable<E>, Framework<E> {
 
 
-	private E bin[];
+	private ArrayList<E> bin;
 	private int index;
+	private int max;
 
 
 	public static void main(String[] args){
-		int max = 4;
 
 	}
-
-	@SuppressWarnings("unchecked")
-	public RecentArray(int max) {
+	public RecentArrayList(int n) {
 		super();
 
-		this.index = max;
+		if(n > 0){
+			this.bin = new ArrayList<E>(n);
 
-		if(max > 0){
-
-			try {
-				this.bin = ((E[]) new Object[max]);
-			} catch (Exception e) {
-				// Catch array initialize exceptions
-				e.printStackTrace();
+			for(int i = 0; i < n; i++){
+				this.bin.add(null);
 			}
 		}
 		else{
-			throw new IllegalStateException(" Max size must be greater than zero ");
+			throw new IllegalStateException(" Max size must be greater than zero ");	
 		}
 
+		
+		this.max = n;
+		this.index = max;
 	}
 
 	@Override
 	public E getOldest() {
 		// TODO Auto-generated method stub
-		
-		return this.bin[this.getOldestIndex()];
+
+
+		return this.bin.get(this.getOldestIndex());
 	}
 
-	// helper method to getOldestIndex
+	@Override
+	public E getNewest() {
+		// TODO Auto-generated method stub
+		return this.bin.get(this.getNewestIndex());
+	}
+
 	private int getOldestIndex() {
 
 		int size = this.getSize();
 
 		int newest = this.getNewestIndex();
-		
 
-		if(size == 1 || this.bin[this.bin.length - 1] == null || newest + 1 >= this.bin.length){
+
+		if(size == 1 ||  this.bin.get(max -1) == null || newest + 1 >= max){
 
 			return 0;
 
 		}
-		else if(newest + 1 < this.bin.length){
+		else if(newest + 1 < max){
 			return newest + 1;
 		}
 		else{
@@ -68,24 +79,15 @@ public class RecentArray<E> implements Iterable<E>, Framework<E> {
 
 	}
 
-	@Override
-	public E getNewest() {
-		// TODO Auto-generated method stub
-
-		
-		
-		return this.bin[this.getNewestIndex()];
-	}
-
 	private int getNewestIndex() {
 		// TODO Auto-generated method stub
 
 		int size = this.getSize();
-		
+
 		if(size > 0){	
-			
+
 			return index;
-			
+
 		}
 		else{
 			throw new IllegalStateException("Nothing has been added yet!");
@@ -93,21 +95,22 @@ public class RecentArray<E> implements Iterable<E>, Framework<E> {
 
 	}
 
+
 	@Override
 	public void add(E e) {
 		// TODO Auto-generated method stub
 		if(this.bin != null){
 			if(e != null){
 
-				index++;
-				if(index >= this.bin.length){
+
+				index++;		
+
+				if(index >= max){
 					this.index = 0;
-
-
 				}
 
-				this.bin[index] = e;
-							
+			
+				this.bin.set(index, e);
 
 
 			}
@@ -120,49 +123,37 @@ public class RecentArray<E> implements Iterable<E>, Framework<E> {
 		}
 	}
 
-
-	// returns how many elemnts are in array
 	@Override
 	public int getSize() {
 		// TODO Auto-generated method stub
+		int count = 0;
+		for(E i : this.bin){
 
-		int count  = 0;
-
-		for(E e : this.bin){
-			if(e != null){
+			if(i != null){
 				count++;
 			}
 		}
-
 		return count;
+
 	}
 
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		for(int i = 0 ; i < this.bin.length; i++){
-			this.bin[i] = null;
-		}
 
-		this.index = 0;
+		this.bin.clear();
 	}
 
 	@Override
 	public Iterator<E> iterator() {
 		// TODO Auto-generated method stub
-
-
 		if(this.getSize() > 0){
-
-			return new RecentArrayIterator<E>(this.bin, this.getOldestIndex(), this.getNewestIndex());
+			return new RecentArrayListIterator<E>(this.bin, this.getNewestIndex(), this.getOldestIndex());
 		}
 		else{
-
 			return Collections.emptyIterator();
 		}
 	}
-
-
 
 	public String printCollection() {
 		// TODO Auto-generated method stub
