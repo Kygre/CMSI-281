@@ -1,15 +1,5 @@
-CMSI-281 - Assignment #2
+CMSI-281 - Assignment #4
 ========
-This project represents assignment number 2 of CMSI 281. For this project class TwoDPoint was created to represent a two dimensional point in (x,y) space.  All TwoDPoints must be positive and will throw an exception for badly constructed points. 
-All TwoDPoints have private variable of x and y with getters and setters for the values.
 
-For the construction of other shapes, it was by intentional design to force all shapes to be created by the TwoDPoint class, therefore forcing all shapes to have positive points, excluding the special case of circle. The shapes were initially organized with an abstract class Shape which was extended to the sub-classes of Circle, Square, Rectangle, and RightTriangle -- and thus they share the same method headers. However, since this Assignment is not about polymorphism, I deleted the super class. 
-      
-
-All variables for a class that represent intrinsic things about the object (e.g - a circle's radius), is hidden from the outside world and can only be get.
-    
-The tests are by no means exhaustive, only 45 in total. I played around with JUnit4 learning about how to catch exceptions especially using the @RULE annotation as well as using @BEFORECLASS and @BEFORE.
-      
-My project design structure strives to be simple, each Shape is made by TwoDPoints and each TwoDPoint must adhere to the criteria in the constructor, thus creating a sort of gatekeeper, which tries to keep the bad stuff out. This project pivots on the functionality of TwoDPoint. Using it as the base for other shapes creates multiple check points.
-      
-This project will continue to be update as a learning experience for JUnit testing.
+I used interfaces to keep the implmentation simple. I did not really see a viable method to use abstract classess and have it be justifiable. Thus, I used an interface and had each Recent Collection implement Framework, the collection methods they all share. 
+I decided to use an ArrayList on my third implementation, since it essentially represents an array in the background. As long as the initial capacity is set, since this recent collection has immutable size, then ArrayList has a bunch of cool features that makes life easy, like ListIterator. The ArrayList implementation is basically the RecentArray collection with different method calls to get and set the elements, which means if RecentArray then RecentArrayList should work too.
