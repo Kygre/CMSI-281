@@ -57,6 +57,7 @@ public class RecentArrayList<E> implements Iterable<E>, Framework<E> {
 		return this.bin.get(this.getNewestIndex());
 	}
 
+	// helper method to get oldest index
 	private int getOldestIndex() {
 
 		int size = this.getSize();
@@ -79,6 +80,7 @@ public class RecentArrayList<E> implements Iterable<E>, Framework<E> {
 
 	}
 
+	// helper method to get newest index
 	private int getNewestIndex() {
 		// TODO Auto-generated method stub
 
@@ -96,6 +98,7 @@ public class RecentArrayList<E> implements Iterable<E>, Framework<E> {
 	}
 
 
+	// add e to this array
 	@Override
 	public void add(E e) {
 		// TODO Auto-generated method stub
@@ -155,6 +158,7 @@ public class RecentArrayList<E> implements Iterable<E>, Framework<E> {
 		}
 	}
 
+	// prints this entire collection
 	public String printCollection() {
 		// TODO Auto-generated method stub
 		String s = "< ";

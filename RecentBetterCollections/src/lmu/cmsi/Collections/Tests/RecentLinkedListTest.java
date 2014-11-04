@@ -1,5 +1,8 @@
 package lmu.cmsi.Collections.Tests;
 
+import java.util.Iterator;
+
+import lmu.cmsi.Collections.Implements.Node;
 import lmu.cmsi.Collections.Implements.RecentLinkedList;
 
 import org.junit.Assert;
@@ -10,10 +13,10 @@ import org.junit.rules.ExpectedException;
 
 public class RecentLinkedListTest {
 
-	
+
 
 	private int max = 4;
-	private RecentLinkedList<Integer> myl;
+	private RecentLinkedList< Integer> myl;
 
 
 	@Rule
@@ -39,31 +42,30 @@ public class RecentLinkedListTest {
 	public void FewerNgetOld() {
 		int offset = 2;
 		int target = max - offset;
-		
+
 		initTo(target);
-		
-		
-		Assert.assertEquals(0, myl.getOldest().doubleValue(), 0);
+
+		Assert.assertEquals(0, myl.getOldest(), 0);
 	}
 
 	@Test
 	public void MoreNGetOld() {
-		int offset = 2;
+		int offset = 3;
 		int target = max + offset;
-		
+
 		initTo(target);
-		
-		Assert.assertEquals(2, myl.getOldest(), 0);
+		myl.printCollection();
+		Assert.assertEquals(3, myl.getOldest(), 0);
 	}
 
 	@Test
 	public void fewerNGetNew() {
 		int offset = 2;
 		int target = max - offset;
-		
+
 		initTo(target);
-		
-		
+
+
 		Assert.assertEquals(1, myl.getNewest(), 0);
 	}
 
@@ -71,11 +73,11 @@ public class RecentLinkedListTest {
 	public void MoreNGetNew() {
 		int offset = 14;
 		int target = max + offset;
-		
+
 		initTo(target);
-		
+
 		Assert.assertEquals(max + offset - 1, myl.getNewest(), 0.0);
-		
+
 	}
 
 	@Test
@@ -106,17 +108,17 @@ public class RecentLinkedListTest {
 
 		// target == 1
 		initTo(target);	
-		
+
 		Assert.assertEquals(target, myl.getSize(),0);
 	}
 
-	
+
 	@Test
 	public void testAdd() {
-		 int target = 1;
-		 initTo(target);
-		 
-		 Assert.assertEquals(target - 1, myl.getNewest(), 0.0);
+		int target = 1;
+		initTo(target);
+
+		Assert.assertEquals(target - 1, myl.getNewest(), 0.0);
 	}
 
 
@@ -128,47 +130,54 @@ public class RecentLinkedListTest {
 
 		int count = 0;
 
-		
-		
-		
-		for(Integer i : myl){
 
+
+
+		Iterator<Integer> iter = myl.iterator();
+
+		while(iter.hasNext()){
+			Integer i = iter.next();
 			if(count == target){
+
 				Assert.assertTrue(i == null);
 			}
 			else{
 				Assert.assertEquals(count, i, 0);
-				
+
 			}
 			count++;
 		}
-
 	}
 
 	@Test
 	public void testIteratorMoreN() {
-		
+
 		int target = max + 3;
 		initTo(target);
-		
+
 		Integer[] myints = new Integer[max];
 		int count = 3;
 		for(int i = 0; i < max;i++){
 			myints[i] = count;
 			count++;
-			
+
 		}
-		
+
 		count = 0;
 		
-		for(Integer g : myl){
-			System.out.println(myints[count] + " - " + g);
-			Assert.assertEquals(myints[count], g, 0.0);
+		Iterator<Integer> iter = myl.iterator();
+		
+		
+		while(iter.hasNext()){
+		
+			Integer i = iter.next();
+			Assert.assertEquals(myints[count], i, 0.0);
 			count++;
 		}
-		
 
-		
+
+
+
 	}
 
 	@Test
@@ -179,9 +188,9 @@ public class RecentLinkedListTest {
 		myl.reset();
 
 		Assert.assertEquals(0, myl.getSize(),0);
-		
+
 	}
 
-	
-	
+
+
 }

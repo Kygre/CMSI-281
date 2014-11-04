@@ -5,6 +5,13 @@ import java.util.Iterator;
 
 import lmu.cmsi.Collections.Interface.Framework;
 
+/**
+ * 
+ * @author Kwadwo Yeboah
+ * Linked List allocation of a RecentCollection
+ *
+ * @param <E>
+ */
 public class RecentLinkedList<E> implements Framework<E>, Iterable<E> {
 
 
@@ -15,21 +22,24 @@ public class RecentLinkedList<E> implements Framework<E>, Iterable<E> {
 	public int max;
 
 	public static void main(String[] args) {
+
+
 		int max = 4;
-		int offset = 4;
-		RecentLinkedList<Integer> myl = new RecentLinkedList<>(max);
+		int offset = 2;
 
-		for(int i = 0; i <= max + offset; i++){
+		RecentLinkedList<Integer> myl = new RecentLinkedList<Integer>(max);
+
+		for(int i = 0 ; i < max + offset; i++){
 			myl.add(i);
-
 		}
-
 		myl.printCollection();
-		System.out.println(myl.getSize());
+System.out.println(myl.getOldestIndex());
+		System.out.println(myl.getOldest());
 	}
 
 
 
+	// allow only up to max elements
 	public RecentLinkedList(int max) {
 		super();
 
@@ -86,7 +96,8 @@ public class RecentLinkedList<E> implements Framework<E>, Iterable<E> {
 
 		if(this.getSize() > 0){
 
-			return new RecentLinkedListIterator<E>(this.head, this.current);
+
+			return new RecentLinkedListIterator<E>(this);
 
 		}
 		else{
@@ -102,31 +113,71 @@ public class RecentLinkedList<E> implements Framework<E>, Iterable<E> {
 		if(size == 1){
 			return head.getValue();
 		}
+		else if(size < max){
+			return head.getValue();
+		}
 		else{
 
 			Node<E> temphead = head;
-			Node<E> newest =  (Node<E>) new Node<E>( this.getNewest());
-			Node<E> prevtemp = null;
+
+			int newest = this.getNewestIndex();
+			if(newest == max - 1){
+				// do nothing
+				// already at head
+			}
+			else{
+
+				for(int i = 0 ; i <= newest && temphead.hasNext(); i++){
 
 
-			while(!temphead.equals(newest)){
-
-
-				if(temphead.hasNext()){
-					prevtemp = temphead;	
 					temphead = temphead.getNext();
-				}
-				else{
-					break;
 				}
 			}
 
-			return prevtemp.getValue();
+			return temphead.getValue();
 		}
 
 
 	}
 
+	// helper method for iterator
+	public int getOldestIndex(){
+		int size = this.getSize();
+
+		int count = 0;
+		if(size == 1){
+			return count;
+		}
+		else if(size < max){
+			return count;
+		}
+		else{
+
+			Node<E> temphead = head;
+
+			int newest = this.getNewestIndex();
+
+			if(newest == max - 1){
+				// do nothing
+				// already at head
+				return count;
+			}
+			else{
+
+				
+				for(int i = 0 ; i <= newest && temphead.hasNext(); i++){
+
+
+					++count;
+				}
+				return count;
+
+
+
+
+			}
+		}
+	}
 	@Override
 	public E getNewest() {
 
@@ -136,10 +187,51 @@ public class RecentLinkedList<E> implements Framework<E>, Iterable<E> {
 			return head.getValue();
 		}
 		else{
-			return current.getValue();		
+			Node<E> temphead = this.head;
+			int offset = 0;
+
+			if(size < max){
+				offset = index;
+			}
+			else{
+				offset = index - 1;
+			}
+			for(int i = 0; i <= offset && temphead.hasNext(); i++){
+
+				temphead = temphead.getNext();
+
+			}
+
+
+			return temphead.getValue();		
 		}
 
 
+	}
+
+
+
+
+	// helper method for  setting iterator
+	public int getNewestIndex(){
+		int size = this.getSize();
+
+		if(size == 1){
+			return 0;
+		}
+		else{
+
+			int offset = 0;
+
+			if(size < max){
+				offset = index + 1;
+			}
+			else{
+				offset = index ;
+			}
+
+			return offset;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -163,99 +255,57 @@ public class RecentLinkedList<E> implements Framework<E>, Iterable<E> {
 
 
 
+
 			if(max == 1){
-				head = next;
+				this.head = next;
 			}
 			else if(head == null){
-				head = next;
-				current = head;
-				index++;
-
+				this.head = next;
 
 			}
 			else{
 
+				Node<E> temphead = this.head;
+				int size = this.getSize();
+				if(index < max - 1){
 
+					if(size == max){
+						Node<E> saveprevious = null;
 
-				System.out.println("index - "+index);
-				if(index >= max ){
+						for(int i = 0; i <= index && temphead.hasNext(); i++){
+							saveprevious = temphead;
+							temphead = temphead.getNext();
 
-					System.out.println(index + " >= " + max);
-					
-					if(current.hasNext()){
-						
-						System.out.println("CURRENT " + current.getValue());
-						System.out.println("CURRENT NEXT " + current.getNext().getValue());
-						current.setNext(next);
-						current = next;
+						}
 
-						System.out.println(current.toString());
+						next.setNext(temphead.getNext());
+						saveprevious.setNext(next);
+						index++;
+
 					}
 					else{
-						
-						index = 0;
-						
-						this.printCollection();
-						
-						current = next;
-						current.setNext(head.getNext());
-						head = current;
-						
-						//current = head.getNext();
-						this.printCollection();
-					}
 
+						for(int i = 0; i < max  && temphead.hasNext(); i++){
+							index++;
+							temphead = temphead.getNext();
+
+						}
+
+
+						temphead.setNext(next);
+
+
+					}
 				}
 				else{
-
-					this.printCollection();
-
-
-
-					
-					try {
-						System.out.println(current.getNext().getValue());
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						//e1.printStackTrace();
-					}
-
-					if(!current.hasNext()){
-
-						current.setNext(next);
-						current = next;
-					}
-					else{
-
-						Node<E> nextNext = null;
-
-
-						if(current.getNext().hasNext()){
-							nextNext = current.getNext().getNext();	
-						}
-						
-
-
-
-
-						if(nextNext != null){
-
-							current.setNext(next);
-							next.setNext(nextNext);
-							current = next;
-						}
-
-					}
-
-					System.out.println("CURRENT " + current.getValue());
-
+					next.setNext(this.head.getNext());
+					this.head = next;
+					this.index = 0;
 				}
-
-
-				index++;
 
 
 			}
+
 
 
 		}
@@ -265,14 +315,6 @@ public class RecentLinkedList<E> implements Framework<E>, Iterable<E> {
 
 	}
 
-
-	private void printNode(Node<E> current2) {
-
-		System.out.print(current2.getValue());
-		if(current2.hasNext()){
-
-		}
-	}
 
 
 
