@@ -21,9 +21,7 @@ public class RecentArrayList<E> implements Iterable<E>, Framework<E> {
 	private int max;
 
 
-	public static void main(String[] args){
-
-	}
+	
 	public RecentArrayList(int n) {
 		super();
 

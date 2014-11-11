@@ -12,10 +12,7 @@ public class RecentArray<E> implements Iterable<E>, Framework<E> {
 	private int index;
 
 
-	public static void main(String[] args){
-		int max = 4;
 
-	}
 
 	@SuppressWarnings("unchecked")
 	public RecentArray(int max) {
