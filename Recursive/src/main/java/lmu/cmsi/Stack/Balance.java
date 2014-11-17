@@ -6,16 +6,18 @@ import java.util.Stack;
 /**
  * 
  * @author Kwadwo Yeboah
- *
+ *	Checks if string is balanced using stack
  */
 public class Balance {
 
+	
+	
 	
 	// Uses stack to determine if parenthesis are balanced
 	public static boolean isBalanced(String s){
 		
 		if(s.isEmpty()){
-			return false;
+			throw new IllegalArgumentException("Cannot check empty string");
 		
 		}
 		
@@ -32,8 +34,31 @@ public class Balance {
 				
 			}
 			else{
+
 				try {
-					stack.pop();
+					
+					String pop = stack.pop();
+					switch(pop){
+					
+					case "(":
+						
+						if(now.equals("]")){
+							return false;
+						}
+						else{
+							continue;
+						}
+						
+						
+					case "[":
+						if(now.equals(")")){
+							return false;
+						}
+						else{
+							continue;
+						}
+						
+					}
 				} catch (EmptyStackException e) {
 					// TODO Auto-generated catch block
 					return false;
@@ -49,8 +74,6 @@ public class Balance {
 		}
 		
 		return true;
-		
-		
 		
 		
 	}
