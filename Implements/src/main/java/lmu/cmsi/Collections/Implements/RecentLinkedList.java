@@ -21,22 +21,6 @@ public class RecentLinkedList<E> implements Framework<E>, Iterable<E> {
 	public int index;
 	public int max;
 
-	public static void main(String[] args) {
-
-
-		int max = 4;
-		int offset = 2;
-
-		RecentLinkedList<Integer> myl = new RecentLinkedList<Integer>(max);
-
-		for(int i = 0 ; i < max + offset; i++){
-			myl.add(i);
-		}
-		myl.printCollection();
-System.out.println(myl.getOldestIndex());
-		System.out.println(myl.getOldest());
-	}
-
 
 
 	// allow only up to max elements

@@ -2,6 +2,7 @@ package edu.lmu.cmsi.GameEngine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Dictionary;
 
 import edu.lmu.cmsi.BetterGame.Drive;
 import edu.lmu.cmsi.Sprite.Actor;
@@ -23,6 +24,7 @@ public class Grid {
 	private Wall[] edges;
 	private Sprite[] sprites;
 
+
 	public Grid(int size, Sprite[] sprites){
 		if(size  < 1){
 			throw new IllegalArgumentException("Grid size must be greater than 1");
@@ -34,13 +36,13 @@ public class Grid {
 
 		// if sprites is null throws IllegalArgumentException
 		this.sprites = error_check(size, sprites);
-		
-	
+
+
 	}
-	
+
 	private Sprite[] error_check(int size, Sprite[] sprites) {
-		
-		
+
+
 		if(sprites != null){
 
 			// check for nulls
@@ -60,7 +62,7 @@ public class Grid {
 			}
 
 			// check for same sprites at location 
-			
+
 			for(int i = 0; i < sprites.length; i++){
 
 				for(int j = i + 1 ; j <= sprites.length -1; j++){
@@ -90,14 +92,14 @@ public class Grid {
 	public void update() {
 		this.frame++;
 
-		this.render();
-		this.updateSprites();
 
+		this.updateSprites();
+		this.render();
 		this.checkCollisions();
 
 		printSprites();
 	}
-	
+
 	// helper method to print Sprites
 	private void printSprites() {
 		System.out.println();
@@ -126,10 +128,10 @@ public class Grid {
 
 		if(sprites != null){
 			for(Sprite p : sprites){
-				
-					grid[p.getLoc().getY()][p.getLoc().getX()] = p.getRender();
-					
-				
+
+				grid[p.getLoc().getY()][p.getLoc().getX()] = p.getRender();
+
+
 			}
 		}
 
@@ -168,35 +170,38 @@ public class Grid {
 	 * Checks all instances of Actors -> only those that can move.
 	 */
 	public void checkCollisions() {
-		
+
 		ArrayList<Actor> myl = getActors();
-		// add walls
-		myl.addAll(Arrays.asList(edges));
-		
-		for(int i = 0; i < myl.size(); i++){
-			Actor a = myl.get(i);
-			for(int j = 0; j < myl.size()  ; j++){
-				if(i != j){
-					
-					Actor b = myl.get(j);
-					
+
+		while(myl.size() > 0){
+			Actor a = myl.get(0);
+			for(Wall w : edges){
+
+				if(a.collidesWith(w)){
+
+					a.CollideItWith(w);
+				}
+			}	
+
+			for(Actor b : myl){
+				if(!(a.equalsLoc(b))){
 					if(a.collidesWith(b)){
-						
 						PrintCollisionSucesss(a, b);
 						a.CollideItWith(b);
 					}
-				}			
-				
+				}
 			}
+			myl.remove(0);
 		}
-	
+
 	}
 
 
+	// returns Sprites as Actors
 	private ArrayList<Actor> getActors() {
 		// TODO Auto-generated method stub
 		ArrayList<Actor> myl = new ArrayList<Actor>();
-		
+
 		for(Sprite p : sprites){
 			if(p instanceof Actor){
 				myl.add((Actor) p);
@@ -218,7 +223,7 @@ public class Grid {
 	}
 
 
-	
+
 	// generates Walls for grid
 	private void initWalls() {
 		// TODO Auto-generated method stub

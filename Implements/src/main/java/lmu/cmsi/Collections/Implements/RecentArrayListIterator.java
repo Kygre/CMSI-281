@@ -10,6 +10,7 @@ public class RecentArrayListIterator<E> implements Iterator<E> {
 	
 	private Iterator<E> iter;
 	private int count;
+	
 	public RecentArrayListIterator(ArrayList<E> bin, int newestindex,
 			int oldestindex) {
 		

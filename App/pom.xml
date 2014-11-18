@@ -18,7 +18,7 @@
       <scope>test</scope>
     </dependency>
     
-    <!-- Used for eclipse maven plugin
+  
  
     <dependency>
     <groupId>jdk.tools</groupId>
@@ -28,7 +28,7 @@
     <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
 </dependency>
  
-  -->
+  
   </dependencies>
   
   

@@ -43,19 +43,27 @@ public class Actor extends Sprite  {
 		Actor sprite = (Actor) sprite1;
 		if(sprite != null){
 			
-			if(sprite instanceof Tree || sprite instanceof Rock || sprite instanceof Wall){
-				this.deltaReverse();
-			}
-			else{
-				// is a monster - try cast to Monster
-				try {
-					this.hit((Monster) sprite);
-				} catch (Exception e) {
-					// Suppressed Exception until fixed
-					
-				//	e.printStackTrace();
-				}
+			if(!( sprite instanceof Monster)){
 				
+				if(sprite instanceof Tree || sprite instanceof Rock || sprite instanceof Wall){
+					this.deltaReverse();
+				}
+				else{
+					// is a monster - try cast to Monster
+					
+					
+					try {
+						this.deltaReverse();
+						sprite.deltaReverse();
+						this.hit((Monster) sprite);
+						
+					} catch (Exception e) {
+						// Suppressed Exception until fixed
+						
+						//	e.printStackTrace();
+					}
+					
+				}
 			}
 		
 		}
@@ -66,7 +74,7 @@ public class Actor extends Sprite  {
 	
 	// Determines whether Actor player hits a monster
 	private void hit(Monster sprite) {
-		// TODO Auto-generated method stub
+		
 		if(sprite instanceof SmallMonsterX ||  sprite instanceof SmallMonsterZ){
 			sprite.Hit(Math.random() <= 0.50);
 		}

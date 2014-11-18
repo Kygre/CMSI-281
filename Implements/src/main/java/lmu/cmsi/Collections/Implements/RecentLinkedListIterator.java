@@ -19,11 +19,7 @@ public class RecentLinkedListIterator<E> implements Iterator<E> {
 	private Node<E> current;
 
 
-	public static void main(String[] args){
-		
-	}
-
-
+	
 	public RecentLinkedListIterator(RecentLinkedList<E> myl) {
 		// TODO Auto-generated constructor stub
 		this.head = myl.head;

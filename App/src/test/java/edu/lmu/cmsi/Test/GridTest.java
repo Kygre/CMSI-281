@@ -248,11 +248,11 @@ public class GridTest {
 
 		// Monsters do not interact, hp should remain zero
 		Actor a = (Actor) smx;
+	
 		Assert.assertEquals(0, smx.getHp(), 0.000);
 		Assert.assertEquals(0, a.getHp(), 0.000);
 
-		// has reversed direction
-		Assert.assertEquals(-1, a.getDelta().getDx());
+		
 
 
 	}
