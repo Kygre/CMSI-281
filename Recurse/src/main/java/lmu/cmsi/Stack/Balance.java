@@ -11,8 +11,6 @@ import java.util.Stack;
 public class Balance {
 
 	
-	
-	
 	// Uses stack to determine if parenthesis are balanced
 	public static boolean isBalanced(String s){
 		
@@ -60,7 +58,7 @@ public class Balance {
 						
 					}
 				} catch (EmptyStackException e) {
-					// TODO Auto-generated catch block
+					
 					return false;
 				}
 			}

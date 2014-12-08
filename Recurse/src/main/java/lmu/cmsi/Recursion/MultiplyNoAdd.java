@@ -15,7 +15,7 @@ public class MultiplyNoAdd {
 			return 0;
 		}
 		
-		if( b > a){
+		if( b > a ){
 					
 			int temp = a;
 			a = b;
