@@ -16,19 +16,6 @@ public class IntegerBinarySearchTree {
 		this.root = null;
 	}
 
-	public static void main(String[] args) {
-		IntegerBinarySearchTree it = new IntegerBinarySearchTree();
-		int max = 3;
-		for (int i = 1; i <= max; i++) {
-			it.insert(i);
-		}
-
-		it.toInOrder();
-
-		for (Integer a : it.toBreadthFirstOrder()) {
-			System.out.print(a + " - ");
-		}
-	}
 
 	/**
 	 * Insert into the tree.
@@ -74,12 +61,12 @@ public class IntegerBinarySearchTree {
 
 		if (node.getValue() > x) {
 			// move left
-			if (node.getLeft() != null) {
+			if (node.hasLeft()) {
 				return recurseDown(node.getLeft(), x);
 			}
 		} else {
 			// move right
-			if (node.getRight() != null) {
+			if (node.hasRight()) {
 				return recurseDown(node.getRight(), x);
 			}
 		}
@@ -233,7 +220,7 @@ public class IntegerBinarySearchTree {
 	}
 
 	/**
-	 * Returns an postorder-traversed array
+	 * Returns a postorder-traversed array
 	 *
 	 * @return an array of Integers, or empty if the tree is empty.
 	 */
@@ -281,7 +268,7 @@ public class IntegerBinarySearchTree {
 	}
 
 	/**
-	 * Helper method to convert List to Integer array
+	 * Helper method to convert List<BinaryTreeNode> to Integer array
 	 */
 	private Integer[] toArray(ArrayList<BinaryTreeNode> myl) {
 		Integer[] myints = new Integer[myl.size()];

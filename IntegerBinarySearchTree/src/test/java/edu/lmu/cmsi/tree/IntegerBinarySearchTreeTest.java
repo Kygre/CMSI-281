@@ -1,186 +1,207 @@
 package edu.lmu.cmsi.tree;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import edu.lmu.cmsi.tree.exception.DuplicateItemException;
+import edu.lmu.cmsi.tree.exception.ItemNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.lmu.cmsi.tree.exception.DuplicateItemException;
-import edu.lmu.cmsi.tree.exception.ItemNotFoundException;
+import static org.junit.Assert.*;
 
 public class IntegerBinarySearchTreeTest {
-  private IntegerBinarySearchTree tree;
+	private IntegerBinarySearchTree tree;
 
-  @Before
-  public void constructTree() {
-    // recreate the tree between every test
-    this.tree = new IntegerBinarySearchTree();
-  }
+	@Before
+	public void constructTree() {
+		// recreate the tree between every test
+		this.tree = new IntegerBinarySearchTree();
+	}
 
-  // insert tests
-  @Test
-  public void basicInsertTest() {
-    this.tree.insert(10);
-  }
+	// insert tests
+	@Test
+	public void basicInsertTest() {
+		this.tree.insert(10);
+	}
 
-  @Test(expected = DuplicateItemException.class)
-  public void insertDuplicateTest() {
-    this.tree.insert(10);
-    this.tree.insert(10);
-  }
-  // end insert tests
+	@Test(expected = DuplicateItemException.class)
+	public void insertDuplicateTest() {
+		this.tree.insert(10);
+		this.tree.insert(10);
+	}
 
-  // find smallest test
-  @Test
-  public void findSmallestValueTest() {
-    int[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
+	// end insert tests
 
-    int smallest = this.tree.findSmallestValue();
-    assertEquals("failure - didn't find the correct smallest value", 1, smallest);
-  }
+	// find smallest test
+	@Test
+	public void findSmallestValueTest() {
+		int[] valuesToInsert = { 912, 4992, 10, 20, 1, 102, 582, 285, 143, 12,
+				2, 3, 4482, 18, 471 };
+		for (int i : valuesToInsert) {
+			this.tree.insert(i);
+		}
 
-  @Test(expected = ItemNotFoundException.class)
-  public void findSmallestValueNotFoundTest() {
-    int smallest = this.tree.findSmallestValue();
-  }
-  // end find smallest test
+		int smallest = this.tree.findSmallestValue();
+		assertEquals("failure - didn't find the correct smallest value", 1,
+				smallest);
+	}
 
-  // find largest test
-  @Test
-  public void findLargestValueTest() {
-    Integer[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
+	@Test(expected = ItemNotFoundException.class)
+	public void findSmallestValueNotFoundTest() {
+		int smallest = this.tree.findSmallestValue();
+	}
 
-    int largest = this.tree.findLargestValue();
-  }
+	// end find smallest test
 
-  @Test(expected = ItemNotFoundException.class)
-  public void findLargestValueNotFoundTest() {
-    int largest = this.tree.findLargestValue();
-  }
-  // find largest test
+	// find largest test
+	@Test
+	public void findLargestValueTest() {
+		Integer[] valuesToInsert = { 912, 4992, 10, 20, 1, 102, 582, 285, 143,
+				12, 2, 3, 4482, 18, 471 };
+		for (int i : valuesToInsert) {
+			this.tree.insert(i);
+		}
 
-  // contains test
-  @Test
-  public void containsFoundTest() {
-    Integer[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
+		int largest = this.tree.findLargestValue();
+	}
 
-    boolean found = this.tree.contains(10);
-    assertTrue("Not found but it should have been", found);
-  }
+	@Test(expected = ItemNotFoundException.class)
+	public void findLargestValueNotFoundTest() {
+		int largest = this.tree.findLargestValue();
+	}
 
-  @Test
-  public void containsNotFoundTest() {
-    int[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
+	// find largest test
 
-    boolean found = this.tree.contains(1111110);
-    assertFalse("Found but it should have been", found);
-  }
-  // end contains test
+	// contains test
+	@Test
+	public void containsFoundTest() {
+		Integer[] valuesToInsert = { 912, 4992, 10, 20, 1, 102, 582, 285, 143,
+				12, 2, 3, 4482, 18, 471 };
+		for (int i : valuesToInsert) {
+			this.tree.insert(i);
+		}
 
-  // preorder traversal test
-  @Test
-  public void preOrderTest() {
-    Integer[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    Integer[] expected = {912, 10, 1, 2, 3, 20, 12, 18, 102, 582, 285, 143, 471, 4992, 4482};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
+		boolean found = this.tree.contains(10);
+		assertTrue("Not found but it should have been", found);
+	}
 
-    Integer[] preOrder = this.tree.toPreOrder();
+	@Test
+	public void containsNotFoundTest() {
+		int[] valuesToInsert = { 912, 4992, 10, 20, 1, 102, 582, 285, 143, 12,
+				2, 3, 4482, 18, 471 };
+		for (int i : valuesToInsert) {
+			this.tree.insert(i);
+		}
 
-    assertArrayEquals("preorder traversal not correct", expected, preOrder);
-  }
+		boolean found = this.tree.contains(1111110);
+		assertFalse("Found but it should have been", found);
+	}
 
-  @Test
-  public void preOrderEmptyTest() {
-    Integer[] expected = {};
-    Integer[] preOrder = this.tree.toPreOrder();
+	// end contains test
 
-    assertArrayEquals("empty preorder traversal not correct", expected, preOrder);
-  }
-  // end preorder traversal test
+	// preorder traversal test
+	@Test
+	public void preOrderTest() {
+		Integer[] valuesToInsert = { 912, 4992, 10, 20, 1, 102, 582, 285, 143,
+				12, 2, 3, 4482, 18, 471 };
+		Integer[] expected = { 912, 10, 1, 2, 3, 20, 12, 18, 102, 582, 285,
+				143, 471, 4992, 4482 };
+		for (int i : valuesToInsert) {
+			this.tree.insert(i);
+		}
 
-  // inorder traversal test
-  @Test
-  public void inOrderTest() {
-    Integer[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    Integer[] expected = {1, 2, 3, 10, 12, 18, 20, 102, 143, 285, 471, 582, 912, 4482, 4992};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
+		Integer[] preOrder = this.tree.toPreOrder();
 
-    Integer[] preOrder = this.tree.toInOrder();
+		assertArrayEquals("preorder traversal not correct", expected, preOrder);
+	}
 
-    assertArrayEquals("inorder traversal not correct", expected, preOrder);
-  }
+	@Test
+	public void preOrderEmptyTest() {
+		Integer[] expected = {};
+		Integer[] preOrder = this.tree.toPreOrder();
 
-  @Test
-  public void inOrderEmptyTest() {
-    Integer[] expected = {};
-    Integer[] preOrder = this.tree.toInOrder();
+		assertArrayEquals("empty preorder traversal not correct", expected,
+				preOrder);
+	}
 
-    assertArrayEquals("empty inorder traversal not correct", expected, preOrder);
-  }
-  // end inorder traversal test
+	// end preorder traversal test
 
-  // postorder traversal test
-  @Test
-  public void postOrderTest() {
-    Integer[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    Integer[] expected = {3, 2, 1, 18, 12, 143, 471, 285, 582, 102, 20, 10, 4482, 4992, 912};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
+	// inorder traversal test
+	@Test
+	public void inOrderTest() {
+		Integer[] valuesToInsert = { 912, 4992, 10, 20, 1, 102, 582, 285, 143,
+				12, 2, 3, 4482, 18, 471 };
+		Integer[] expected = { 1, 2, 3, 10, 12, 18, 20, 102, 143, 285, 471,
+				582, 912, 4482, 4992 };
+		for (int i : valuesToInsert) {
+			this.tree.insert(i);
+		}
 
-    Integer[] postOrder = this.tree.toPostOrder();
+		Integer[] preOrder = this.tree.toInOrder();
 
-    assertArrayEquals("postorder traversal not correct", expected, postOrder);
-  }
+		assertArrayEquals("inorder traversal not correct", expected, preOrder);
+	}
 
-  @Test
-  public void postOrderEmptyTest() {
-    Integer[] expected = {};
-    Integer[] postOrder = this.tree.toPostOrder();
+	@Test
+	public void inOrderEmptyTest() {
+		Integer[] expected = {};
+		Integer[] preOrder = this.tree.toInOrder();
 
-    assertArrayEquals("empty postorder traversal not correct", expected, postOrder);
-  }
-  // end postorder traversal test
+		assertArrayEquals("empty inorder traversal not correct", expected,
+				preOrder);
+	}
 
-  // breadth-first traversal test
-  @Test
-  public void breadthFirstOrderTest() {
-    Integer[] valuesToInsert = {912, 4992, 10, 20, 1, 102, 582, 285, 143, 12, 2, 3, 4482, 18, 471};
-    Integer[] expected = {912, 10, 4992, 1, 20, 4482, 2, 12, 102, 3, 18, 582, 285, 143, 471};
-    for (int i : valuesToInsert) {
-      this.tree.insert(i);
-    }
+	// end inorder traversal test
 
-    Integer[] breadthFirst = this.tree.toBreadthFirstOrder();
+	// postorder traversal test
+	@Test
+	public void postOrderTest() {
+		Integer[] valuesToInsert = { 912, 4992, 10, 20, 1, 102, 582, 285, 143,
+				12, 2, 3, 4482, 18, 471 };
+		Integer[] expected = { 3, 2, 1, 18, 12, 143, 471, 285, 582, 102, 20,
+				10, 4482, 4992, 912 };
+		for (int i : valuesToInsert) {
+			this.tree.insert(i);
+		}
 
-    assertArrayEquals("breadth-first not correct", expected, breadthFirst);
-  }
+		Integer[] postOrder = this.tree.toPostOrder();
 
-  @Test
-  public void breadthFirstOrderEmptyTest() {
-    Integer[] expected = {};
-    Integer[] breadthFirst = this.tree.toBreadthFirstOrder();
+		assertArrayEquals("postorder traversal not correct", expected,
+				postOrder);
+	}
 
-    assertArrayEquals("empty breadth-first traversal not correct", expected, breadthFirst);
-  }
-  // end breadth-first traversal test
+	@Test
+	public void postOrderEmptyTest() {
+		Integer[] expected = {};
+		Integer[] postOrder = this.tree.toPostOrder();
+
+		assertArrayEquals("empty postorder traversal not correct", expected,
+				postOrder);
+	}
+
+	// end postorder traversal test
+
+	// breadth-first traversal test
+	@Test
+	public void breadthFirstOrderTest() {
+		Integer[] valuesToInsert = { 912, 4992, 10, 20, 1, 102, 582, 285, 143,
+				12, 2, 3, 4482, 18, 471 };
+		Integer[] expected = { 912, 10, 4992, 1, 20, 4482, 2, 12, 102, 3, 18,
+				582, 285, 143, 471 };
+		for (int i : valuesToInsert) {
+			this.tree.insert(i);
+		}
+
+		Integer[] breadthFirst = this.tree.toBreadthFirstOrder();
+
+		assertArrayEquals("breadth-first not correct", expected, breadthFirst);
+	}
+
+	@Test
+	public void breadthFirstOrderEmptyTest() {
+		Integer[] expected = {};
+		Integer[] breadthFirst = this.tree.toBreadthFirstOrder();
+
+		assertArrayEquals("empty breadth-first traversal not correct",
+				expected, breadthFirst);
+	}
+	// end breadth-first traversal test
 }
