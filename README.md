@@ -11,7 +11,7 @@ String to Integer converts the String to a char array and passes it through recu
 The recursive essentially grabs each char in the array and converts it to Base 10 using the index it is currently at. ( Assuming no leading zero magic)
 
 ## Stack Parenthesis Checker
-The stack parenthesis checker uses the Java stock to check for a balanced parenthesis. If the brace is open then it is pushed, if it closed then the stack is popped and checked with the current parenthesis if it is a matching brace, if this fails then it is not a balanced parenthesis.
+The stack parenthesis checker uses the Java stack to check for a balanced parenthesis. If the brace is open then it is pushed, if it closed then the stack is popped and checked with the current parenthesis if it is a matching brace, if this fails then it is not a balanced parenthesis.
 As in the simplified example below checking open parenthesis against a closed bracket and etc;
 assuming pop is the popped string off of the stack
 
